@@ -16,6 +16,8 @@ import Chatbot from "./pages/Chatbot.jsx";
 import Dataset from "./pages/Dataset.jsx";
 import MedicalReport from "./pages/MedicalReport.jsx";
 import ViewAllReports from "./pages/ViewAllReports.jsx";
+import Report from "./pages/Report.jsx";  // Patient's Report page
+import PatientHome from "./pages/PatientHome.jsx";
 
 const App = () => {
   const [user, loading] = useAuthState(auth);
@@ -77,14 +79,14 @@ const App = () => {
               }
             />
             <Route
-            path="/chatbot"
-            element={
-              <ProtectedRoute>
-                <Chatbot/>
-              </ProtectedRoute>
-            }
-          />
-          <Route
+              path="/chatbot"
+              element={
+                <ProtectedRoute>
+                  <Chatbot />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/medical_report"
               element={
                 <ProtectedRoute>
@@ -100,12 +102,28 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/visualization"
               element={
                 <ProtectedRoute>
                   <Visualization />
+                </ProtectedRoute>
+              }
+            />
+            {/* Patient Report route */}
+            <Route
+              path="/report"
+              element={
+                <ProtectedRoute>
+                  <Report />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/patient"
+              element={
+                <ProtectedRoute>
+                  <PatientHome />
                 </ProtectedRoute>
               }
             />

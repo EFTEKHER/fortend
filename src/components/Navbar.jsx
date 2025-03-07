@@ -10,6 +10,9 @@ const Navbar = () => {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
 
+  // Determine if the user is admin based on their email.
+  const isAdmin = user && (user.email === "binary2ai@gmail.com" || user.email === "shaimacme@gmail.com");
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -33,13 +36,23 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/" className="text-gray-700 font-bold hover:text-indigo-600">Home</Link>
-            <Link to="/predict" className="text-gray-700 font-bold hover:text-indigo-600">Prediction</Link>
-            <Link to="/recommendation" className="text-gray-700 font-bold hover:text-indigo-600">Diet</Link>
-            <Link to="/workflow" className="text-gray-700 font-bold hover:text-indigo-600">Workflow</Link>
-            <Link to="/visualization" className="text-gray-700 font-bold hover:text-indigo-600">Visualization</Link>
-            <Link to="/dataset" className="text-gray-700 font-bold hover:text-indigo-600">Dataset</Link>
-            <Link to="/chatbot" className="text-gray-700 font-bold hover:text-indigo-600">Chatbot</Link>
+            {isAdmin ? (
+              <>
+                <Link to="/" className="text-gray-700 font-bold hover:text-indigo-600">Home</Link>
+                <Link to="/predict" className="text-gray-700 font-bold hover:text-indigo-600">Prediction</Link>
+                <Link to="/recommendation" className="text-gray-700 font-bold hover:text-indigo-600">Diet</Link>
+                <Link to="/workflow" className="text-gray-700 font-bold hover:text-indigo-600">Workflow</Link>
+                <Link to="/visualization" className="text-gray-700 font-bold hover:text-indigo-600">Visualization</Link>
+                <Link to="/dataset" className="text-gray-700 font-bold hover:text-indigo-600">Dataset</Link>
+                <Link to="/chatbot" className="text-gray-700 font-bold hover:text-indigo-600">Chatbot</Link>
+                <Link to="/medical_report" className="text-gray-700 font-bold hover:text-indigo-600">Medical Report</Link>
+              </>
+            ) : (
+              <>
+                <Link to="/report" className="text-gray-700 font-bold hover:text-indigo-600">My Reports</Link>
+                <Link to="/patient" className="text-gray-700 font-bold hover:text-indigo-600">Home</Link>
+              </>
+            )}
             {user ? (
               <button
                 onClick={handleLogout}
@@ -73,51 +86,83 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link
-              to="/"
-              className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
-              onClick={toggleMenu}
-            >
-              Home
-            </Link>
-            <Link
-              to="/predict"
-              className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
-              onClick={toggleMenu}
-            >
-              Prediction
-            </Link>
-            <Link
-              to="/recommendation"
-              className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
-              onClick={toggleMenu}
-            >
-              Diet
-            </Link>
-            <Link
-              to="/workflow"
-              className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
-              onClick={toggleMenu}
-            >
-              Workflow
-            </Link>
-            <Link
-              to="/dataset"
-              className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
-              onClick={toggleMenu}
-            >Dataset</Link>
-             <Link
-              to="/chatbot"
-              className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
-              onClick={toggleMenu}
-            >Chatbot</Link>
-            <Link
-              to="/visualization"
-              className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
-              onClick={toggleMenu}
-            >
-              Visualization
-            </Link>
+            {isAdmin ? (
+              <>
+                <Link
+                  to="/"
+                  className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
+                  onClick={toggleMenu}
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/predict"
+                  className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
+                  onClick={toggleMenu}
+                >
+                  Prediction
+                </Link>
+                <Link
+                  to="/recommendation"
+                  className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
+                  onClick={toggleMenu}
+                >
+                  Diet
+                </Link>
+                <Link
+                  to="/workflow"
+                  className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
+                  onClick={toggleMenu}
+                >
+                  Workflow
+                </Link>
+                <Link
+                  to="/visualization"
+                  className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
+                  onClick={toggleMenu}
+                >
+                  Visualization
+                </Link>
+                <Link
+                  to="/dataset"
+                  className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
+                  onClick={toggleMenu}
+                >
+                  Dataset
+                </Link>
+                <Link
+                  to="/chatbot"
+                  className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
+                  onClick={toggleMenu}
+                >
+                  Chatbot
+                </Link>
+                <Link
+                  to="/medical_report"
+                  className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
+                  onClick={toggleMenu}
+                >
+                  Medical Report
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/report"
+                  className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
+                  onClick={toggleMenu}
+                >
+                  My Reports
+                </Link>
+                <Link
+                  to="/patient"
+                  className="block px-3 py-2 text-gray-700 hover:text-indigo-600"
+                  onClick={toggleMenu}
+                >
+                  Home
+                </Link>
+              </>
+            )}
             {user ? (
               <button
                 onClick={() => {
